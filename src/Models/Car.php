@@ -73,6 +73,9 @@ class Car extends AbstractModel
         return $this->version;
     }
 
+    /**
+     * @return Kenteken
+     */
     public function getFullInfo() : Kenteken
     {
         return $this->fullInfo;

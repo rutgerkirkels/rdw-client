@@ -276,6 +276,7 @@ class Kenteken extends AbstractModel
      * @var number
      */
     protected $lengte;
+
     /**
      *
      * Breedte
@@ -430,11 +431,19 @@ class Kenteken extends AbstractModel
      * @var string
      */
     protected $api_gekentekende_voertuigen_voertuigklasse;
+
+    /**
+     * Kenteken constructor.
+     * @param $result
+     */
     public function __construct($result)
     {
         foreach ($result as $key => $value) {
             if (property_exists($this, $key)) {
-                $this->$key = $value;
+                $method = 'set' . $this->dashesToCamelCase($key, true);
+                $this->$method($value);
+//                $this->$key = $value;
+
             }
         }
     }
@@ -475,7 +484,7 @@ class Kenteken extends AbstractModel
      */
     public function getMerk()
     {
-        return $this->merk;
+        return ucfirst(strtolower($this->merk));
     }
     /**
      * @param string $merk
@@ -515,7 +524,7 @@ class Kenteken extends AbstractModel
      */
     public function setVervaldatumApk($vervaldatum_apk)
     {
-        $this->vervaldatum_apk = $vervaldatum_apk;
+        $this->vervaldatum_apk = $this->convertDate($vervaldatum_apk);
         return $this;
     }
     /**
@@ -531,7 +540,7 @@ class Kenteken extends AbstractModel
      */
     public function setDatumTenaamstelling($datum_tenaamstelling)
     {
-        $this->datum_tenaamstelling = $datum_tenaamstelling;
+        $this->datum_tenaamstelling = $this->convertDate($datum_tenaamstelling);
         return $this;
     }
     /**
@@ -539,7 +548,7 @@ class Kenteken extends AbstractModel
      */
     public function getBrutoBpm()
     {
-        return $this->bruto_bpm;
+        return intval($this->bruto_bpm);
     }
     /**
      * @param number $bruto_bpm
@@ -571,7 +580,7 @@ class Kenteken extends AbstractModel
      */
     public function getAantalZitplaatsen()
     {
-        return $this->aantal_zitplaatsen;
+        return intval($this->aantal_zitplaatsen);
     }
     /**
      * @param number $aantal_zitplaatsen
@@ -587,7 +596,7 @@ class Kenteken extends AbstractModel
      */
     public function getEersteKleur()
     {
-        return $this->eerste_kleur;
+        return strtolower($this->eerste_kleur);
     }
     /**
      * @param string $eerste_kleur
@@ -603,7 +612,7 @@ class Kenteken extends AbstractModel
      */
     public function getTweedeKleur()
     {
-        return $this->tweede_kleur;
+        return strtolower($this->tweede_kleur) === 'niet geregistreerd' ? null : strtolower($this->tweede_kleur);
     }
     /**
      * @param string $tweede_kleur
@@ -619,7 +628,7 @@ class Kenteken extends AbstractModel
      */
     public function getAantalCilinders()
     {
-        return $this->aantal_cilinders;
+        return intval($this->aantal_cilinders);
     }
     /**
      * @param number $aantal_cilinders
@@ -635,7 +644,7 @@ class Kenteken extends AbstractModel
      */
     public function getCilinderinhoud()
     {
-        return $this->cilinderinhoud;
+        return intval($this->cilinderinhoud);
     }
     /**
      * @param number $cilinderinhoud
@@ -651,7 +660,7 @@ class Kenteken extends AbstractModel
      */
     public function getMassaLedigVoertuig()
     {
-        return $this->massa_ledig_voertuig;
+        return intval($this->massa_ledig_voertuig);
     }
     /**
      * @param number $massa_ledig_voertuig
@@ -667,7 +676,7 @@ class Kenteken extends AbstractModel
      */
     public function getToegestaneMaximumMassaVoertuig()
     {
-        return $this->toegestane_maximum_massa_voertuig;
+        return intval($this->toegestane_maximum_massa_voertuig);
     }
     /**
      * @param number $toegestane_maximum_massa_voertuig
@@ -683,7 +692,7 @@ class Kenteken extends AbstractModel
      */
     public function getMassaRijklaar()
     {
-        return $this->massa_rijklaar;
+        return intval($this->massa_rijklaar);
     }
     /**
      * @param number $massa_rijklaar
@@ -699,7 +708,7 @@ class Kenteken extends AbstractModel
      */
     public function getMaximumMassaTrekkenOngeremd()
     {
-        return $this->maximum_massa_trekken_ongeremd;
+        return intval($this->maximum_massa_trekken_ongeremd);
     }
     /**
      * @param number $maximum_massa_trekken_ongeremd
@@ -715,7 +724,7 @@ class Kenteken extends AbstractModel
      */
     public function getMaximumTrekkenMassaGeremd()
     {
-        return $this->maximum_trekken_massa_geremd;
+        return intval($this->maximum_trekken_massa_geremd);
     }
     /**
      * @param number $maximum_trekken_massa_geremd
@@ -731,7 +740,7 @@ class Kenteken extends AbstractModel
      */
     public function getRetrofitRoetfilter()
     {
-        return $this->retrofit_roetfilter;
+        return strtolower($this->retrofit_roetfilter) === 'nee' ? false : true;
     }
     /**
      * @param string $retrofit_roetfilter
@@ -771,7 +780,7 @@ class Kenteken extends AbstractModel
      */
     public function setDatumEersteToelating($datum_eerste_toelating)
     {
-        $this->datum_eerste_toelating = $datum_eerste_toelating;
+        $this->datum_eerste_toelating = $this->convertDate($datum_eerste_toelating);
         return $this;
     }
     /**
@@ -787,7 +796,7 @@ class Kenteken extends AbstractModel
      */
     public function setDatumEersteAfgifteNederland($datum_eerste_afgifte_nederland)
     {
-        $this->datum_eerste_afgifte_nederland = $datum_eerste_afgifte_nederland;
+        $this->datum_eerste_afgifte_nederland = $this->convertDate($datum_eerste_afgifte_nederland);
         return $this;
     }
     /**
@@ -811,7 +820,7 @@ class Kenteken extends AbstractModel
      */
     public function getCatalogusprijs()
     {
-        return $this->catalogusprijs;
+        return intval($this->catalogusprijs);
     }
     /**
      * @param number $catalogusprijs
@@ -827,7 +836,7 @@ class Kenteken extends AbstractModel
      */
     public function getWamVerzekerd()
     {
-        return $this->wam_verzekerd;
+        return strtolower($this->wam_verzekerd) === 'ja' ? true : false;
     }
     /**
      * @param string $wam_verzekerd
@@ -955,7 +964,7 @@ class Kenteken extends AbstractModel
      */
     public function getAantalDeuren()
     {
-        return $this->aantal_deuren;
+        return intval($this->aantal_deuren);
     }
     /**
      * @param number $aantal_deuren
@@ -971,7 +980,7 @@ class Kenteken extends AbstractModel
      */
     public function getAantalWielen()
     {
-        return $this->aantal_wielen;
+        return intval($this->aantal_wielen);
     }
     /**
      * @param number $aantal_wielen
@@ -987,7 +996,7 @@ class Kenteken extends AbstractModel
      */
     public function getAfstandHartKoppelingTotAchterzijdeVoertuig()
     {
-        return $this->afstand_hart_koppeling_tot_achterzijde_voertuig;
+        return intval($this->afstand_hart_koppeling_tot_achterzijde_voertuig);
     }
     /**
      * @param number $afstand_hart_koppeling_tot_achterzijde_voertuig
@@ -1003,7 +1012,7 @@ class Kenteken extends AbstractModel
      */
     public function getAfstandVoorzijdeVoertuigTotHartKoppeling()
     {
-        return $this->afstand_voorzijde_voertuig_tot_hart_koppeling;
+        return intval($this->afstand_voorzijde_voertuig_tot_hart_koppeling);
     }
     /**
      * @param number $afstand_voorzijde_voertuig_tot_hart_koppeling
@@ -1035,7 +1044,7 @@ class Kenteken extends AbstractModel
      */
     public function getLengte()
     {
-        return $this->lengte;
+        return intval($this->lengte);
     }
     /**
      * @param number $lengte
@@ -1051,7 +1060,7 @@ class Kenteken extends AbstractModel
      */
     public function getBreedte()
     {
-        return $this->breedte;
+        return intval($this->breedte);
     }
     /**
      * @param number $breedte
@@ -1131,7 +1140,7 @@ class Kenteken extends AbstractModel
      */
     public function getTechnischeMaxMassaVoertuig()
     {
-        return $this->technische_max_massa_voertuig;
+        return intval($this->technische_max_massa_voertuig);
     }
     /**
      * @param number $technische_max_massa_voertuig
@@ -1227,7 +1236,7 @@ class Kenteken extends AbstractModel
      */
     public function getVolgnummerWijzigingEuTypegoedkeuring()
     {
-        return $this->volgnummer_wijziging_eu_typegoedkeuring;
+        return intval($this->volgnummer_wijziging_eu_typegoedkeuring);
     }
     /**
      * @param number $volgnummer_wijziging_eu_typegoedkeuring
@@ -1243,7 +1252,7 @@ class Kenteken extends AbstractModel
      */
     public function getVermogenMassarijklaar()
     {
-        return $this->vermogen_massarijklaar;
+        return floatval($this->vermogen_massarijklaar);
     }
     /**
      * @param number $vermogen_massarijklaar
@@ -1259,7 +1268,7 @@ class Kenteken extends AbstractModel
      */
     public function getWielbasis()
     {
-        return $this->wielbasis;
+        return intval($this->wielbasis);
     }
     /**
      * @param number $wielbasis
@@ -1275,7 +1284,7 @@ class Kenteken extends AbstractModel
      */
     public function getExportIndicator()
     {
-        return $this->export_indicator;
+        return strtolower($this->export_indicator) === 'nee' ? false : true;
     }
     /**
      * @param string $export_indicator
@@ -1291,7 +1300,7 @@ class Kenteken extends AbstractModel
      */
     public function getOpenstaandeTerugroepactieIndicator()
     {
-        return $this->openstaande_terugroepactie_indicator;
+        return strtolower($this->openstaande_terugroepactie_indicator) === 'nee' ? false : true;
     }
     /**
      * @param string $openstaande_terugroepactie_indicator
