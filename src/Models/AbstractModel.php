@@ -6,6 +6,7 @@ namespace RutgerKirkels\RDW_Client\Models;
  * Class AbstractModel
  * @package RutgerKirkels\RDW_Client\Models
  * @author Rutger Kirkels <rutger@kirkels.nl>
+ * @license MIT
  */
 abstract class AbstractModel
 {

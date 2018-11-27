@@ -9,6 +9,7 @@ use RutgerKirkels\RDW_Client\Models\Kenteken;
  * Class KentekenRepository
  * @package RutgerKirkels\RDW_Client\Repositories
  * @author Rutger Kirkels <rutger@kirkels.nl>
+ * @license MIT
  */
 class KentekenRepository extends AbstractRepository
 {

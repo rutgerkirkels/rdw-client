@@ -1,12 +1,15 @@
 <?php
-
 namespace RutgerKirkels\RDW_Client;
 
-
 use RutgerKirkels\RDW_Client\Models\Car;
-use RutgerKirkels\RDW_Client\Models\Kenteken;
 use RutgerKirkels\RDW_Client\Repositories\KentekenRepository;
 
+/**
+ * Class Client
+ * @package RutgerKirkels\RDW_Client
+ * @author Rutger Kirkels <rutger@kirkels.nl>
+ * @license MIT
+ */
 class Client
 {
     /**
@@ -25,7 +28,7 @@ class Client
 
     /**
      * @param string $licensePlateNumber
-     * @return Kenteken
+     * @return null|Car If no match was found, NULL is returned.
      * @throws \Exception
      */
     public function findCarByLicensePlateNumber(string $licensePlateNumber) : ?Car
@@ -40,6 +43,11 @@ class Client
         return new Car($result);
     }
 
+    /**
+     * Filters out all characters except upper case characters en digits.
+     * @param string $licensePlatNumber
+     * @return string
+     */
     protected function filterLicensePlateNumber(string $licensePlatNumber) : string
     {
         return preg_replace('/[^A-Z0-9]/', '', strtoupper($licensePlatNumber));

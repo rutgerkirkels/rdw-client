@@ -8,7 +8,7 @@ use GuzzleHttp\Client;
  * Class AbstractRepository
  * @package RutgerKirkels\RDW_Client\Repositories
  * @author Rutger Kirkels <rutger@kirkels.nl>
- *
+ * @license MIT
  */
 abstract class AbstractRepository
 {
