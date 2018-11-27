@@ -1,0 +1,22 @@
+{
+  "name": "rutgerkirkels/rdw-client",
+  "type": "library",
+  "description": "RDW API Client",
+  "keywords": ["rdw","api","client"],
+  "homepage": "https://github.com/atention/azure-client.git",
+  "authors": [
+    {
+      "name": "Rutger Kirkels",
+      "email": "rutger@kirkels.nl",
+      "homepage": "https://www.linkedin.com/in/rutgerkirkels"
+    }
+  ],
+  "require": {
+    "guzzlehttp/guzzle": "^6.3.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "RutgerKirkels\\RDW_Client\\": "src/"
+    }
+  }
+}
