@@ -2,17 +2,30 @@
 
 namespace RutgerKirkels\RDW_Client\Repositories;
 
-
 use GuzzleHttp\Exception\RequestException;
+use RutgerKirkels\RDW_Client\Models\Kenteken;
 
+/**
+ * Class KentekenRepository
+ * @package RutgerKirkels\RDW_Client\Repositories
+ * @author Rutger Kirkels <rutger@kirkels.nl>
+ */
 class KentekenRepository extends AbstractRepository
 {
+    /**
+     * KentekenRepository constructor.
+     */
     public function __construct()
     {
         $this->apiUrl = 'https://opendata.rdw.nl/resource/m9d7-ebf2.json';
         parent::__construct();
     }
 
+    /**
+     * @param $query
+     * @return array|Kenteken
+     * @throws \Exception
+     */
     public function find($query)
     {
         try {
@@ -38,6 +51,7 @@ class KentekenRepository extends AbstractRepository
                 return $kenteken;
             }
         }
+
         return $kentekens;
     }
 }
