@@ -26,14 +26,22 @@ class Car extends AbstractModel
     protected $version;
 
     /**
+     * @var array
+     */
+    protected $fullInfo;
+
+    /**
      * Car constructor.
      * @param Kenteken $kenteken
+     * @throws \ReflectionException
      */
     public function __construct(Kenteken $kenteken)
     {
         $this->licensePlate = $kenteken->getKenteken();
         $this->brand = $kenteken->getMerk();
         $this->version = $kenteken->getHandelsbenaming();
+
+        $this->fullInfo = $kenteken;
     }
 
     public function getFullDescription() : string
@@ -64,4 +72,11 @@ class Car extends AbstractModel
     {
         return $this->version;
     }
+
+    public function getFullInfo() : Kenteken
+    {
+        return $this->fullInfo;
+    }
+
+
 }

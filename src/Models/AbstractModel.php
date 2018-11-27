@@ -22,7 +22,10 @@ abstract class AbstractModel
 
         foreach($properties as $property) {
             $name = $property->getName();
-            $returnArray[$name] = $this->$name;
+            if (!is_null($this->$name)) {
+                $returnArray[$name] = $this->$name;
+            }
+
         }
 
         return $returnArray;

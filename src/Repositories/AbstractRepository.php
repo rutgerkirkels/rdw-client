@@ -76,5 +76,4 @@ abstract class AbstractRepository
     {
         return $this->findBy($key, $value, 1, 0);
     }
-
 }

@@ -8,7 +8,7 @@ namespace RutgerKirkels\RDW_Client\Models;
  * @author Rutger Kirkels <rutger@kirkels.nl>
  * @license MIT
  */
-class Kenteken
+class Kenteken extends AbstractModel
 {
     /**
      *
