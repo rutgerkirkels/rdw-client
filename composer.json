@@ -4,12 +4,12 @@
   "license": "MIT",
   "description": "RDW API Client",
   "keywords": ["rdw","api","client"],
-  "homepage": "https://github.com/atention/azure-client.git",
+  "homepage": "https://rutger.kirkels.nl",
   "authors": [
     {
       "name": "Rutger Kirkels",
       "email": "rutger@kirkels.nl",
-      "homepage": "https://www.linkedin.com/in/rutgerkirkels"
+      "homepage": "https://rutger.kirkels.nl"
     }
   ],
   "require": {
