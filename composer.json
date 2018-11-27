@@ -1,6 +1,7 @@
 {
   "name": "rutgerkirkels/rdw-client",
   "type": "library",
+  "license": "MIT",
   "description": "RDW API Client",
   "keywords": ["rdw","api","client"],
   "homepage": "https://github.com/atention/azure-client.git",
