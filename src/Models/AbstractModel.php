@@ -61,6 +61,6 @@ abstract class AbstractModel
      */
     protected function convertDate(string $date)
     {
-        return \DateTime::createFromFormat('j/m/Y H:i:s', $date . ' 00:00:00');
+        return \DateTime::createFromFormat('j/m/Y H:i:s', $date . ' 00:00:00', new \DateTimeZone('Europe/Amsterdam'));
     }
 }
