@@ -16,10 +16,16 @@ class KentekenRepository extends AbstractRepository
     /**
      * KentekenRepository constructor.
      */
-    public function __construct()
+    public function __construct(string $apiUrl = '', string $appToken = '')
     {
-        $this->apiUrl = 'https://opendata.rdw.nl/resource/m9d7-ebf2.json';
-        parent::__construct();
+        if (empty($apiUrl)) {
+            $this->apiUrl = 'https://opendata.rdw.nl/resource/m9d7-ebf2.json';
+        }
+        else {
+            $this->apiUrl = $apiUrl;
+        }
+
+        parent::__construct($appToken);
     }
 
     /**
@@ -30,13 +36,11 @@ class KentekenRepository extends AbstractRepository
     public function find($query)
     {
         try {
-            $request = $this->client->get('', array(
-                'query' => $query,
-                'headers' => array(
-                    'Content-Type' => 'application/json',
-                    'Accept' => 'application/json'
-                )
-            ));
+            $options = [
+                'query' => $query
+            ];
+
+            $request = $this->client->get('', $options);
         } catch (RequestException $e) {
             throw new \Exception($e->getMessage());
         }

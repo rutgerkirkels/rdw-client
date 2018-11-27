@@ -17,6 +17,11 @@ abstract class AbstractRepository
      */
     protected $apiUrl;
 
+    protected $headers = [
+        'Content-Type' => 'application/json',
+        'Accept' => 'application/json'
+    ];
+
     /**
      * @var string
      */
@@ -27,13 +32,21 @@ abstract class AbstractRepository
      */
     protected $client;
 
-    public function __construct()
+    public function __construct(string $appToken = '')
     {
+        $this->appToken = $appToken;
+        if (!empty($appToken)) {
+            $this->headers['X-App-Token'] = $this->appToken;
+        }
+
         $this->client = new Client(
             array(
-                'base_uri' => $this->apiUrl
+                'base_uri' => $this->apiUrl,
+                'headers' => $this->headers
             )
         );
+
+
     }
 
     /**

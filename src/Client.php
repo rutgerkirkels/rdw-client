@@ -21,7 +21,7 @@ class Client
      * Client constructor.
      * @param string $appToken
      */
-    public function __construct(string $appToken)
+    public function __construct(string $appToken = '')
     {
         $this->appToken = $appToken;
     }
@@ -33,7 +33,7 @@ class Client
      */
     public function findCarByLicensePlateNumber(string $licensePlateNumber) : ?Car
     {
-        $kentekenRepository = new KentekenRepository();
+        $kentekenRepository = new KentekenRepository('', $this->appToken);
         $result = $kentekenRepository->findOneBy('kenteken', $this->filterLicensePlateNumber($licensePlateNumber));
 
         if (!is_object($result)) {
